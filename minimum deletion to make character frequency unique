@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minDeletions(string s) {
+        //store the frequency of each character
+        vector<int> frequency(26,0);
+        for(char c:s){
+            frequency[c-'a']++;
+        }
+        
+        int deletecount = 0;
+        //use a set to store the seen frequency
+        set<int> seenfrequency;
+        for(int i=0;i<26;i++){
+            while(frequency[i] && seenfrequency.find(frequency[i]) != seenfrequency.end()){
+                frequency[i]--;
+                deletecount++;
+            }
+            //add the newly frequency
+            seenfrequency.insert(frequency[i]);
+        }
+        
+        return deletecount;
+    }
+};
