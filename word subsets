@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+        
+        int child[26]={0};
+        vector<string>ans;
+        for(auto it:words2)
+        {
+            int tmp[26]={0};
+            for(int i=0;i<it.length();i++)
+            {
+                tmp[it[i]-'a']++;
+            }
+            for(int i=0;i<26;i++)
+            {
+                child[i]=max(child[i],tmp[i]);
+            }
+        }
+        for(auto it:words1)
+        {
+            bool check=true;
+            int tmp[26]={0};
+            for(int i=0;i<it.length();i++)
+            {
+                tmp[it[i]-'a']++;
+            }
+            for(int i=0;i<26;i++)
+            {
+                if(tmp[i]<child[i])
+                {
+                    check=false;
+                    break;
+                }
+            }
+            if(check)
+            {
+                ans.push_back(it);
+            }
+        }
+        return ans;
+    }
+};
